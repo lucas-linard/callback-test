@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.post("/", function (req, res, next) {
-  console.log(req);
+  console.log(JSON.stringify(req.body, null, 2));
 
   let dataAtual = new Date();
   let doisDiasNoFuturo = new Date(dataAtual);

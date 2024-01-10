@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.post("/", async function (req, res, next) {
-  console.log("\n -----Shopify------- \n")
+  console.log("\n -----Shopify------- \n");
   console.log(req.body);
 
   const ratesByGiross = await getRatesByGiross(
@@ -11,7 +11,7 @@ router.post("/", async function (req, res, next) {
     req.body.rate.destination
   );
 
-  console.log("\n -----Giross------- \n")
+  console.log("\n -----Giross------- \n");
 
   if (ratesByGiross.sucesso) {
     const rates = ratesByGiross.servicos.map((rate) => {
@@ -29,18 +29,21 @@ router.post("/", async function (req, res, next) {
       rates: rates,
     });
   } else {
-    res.status(400).json({
-      errors: [
-        {
-          code: "not_found",
-          message: "No rates found for the specified parameters",
-        },
-      ],
-    });
+    res.status(400).json(ratesByGiross.error);
   }
 });
 
 async function getRatesByGiross(origin, destination) {
+  if (
+    `${origin.city} - ${origin.province}` !==
+    `${destination.city} - ${destination.province}`
+  ) {
+    return {
+      sucesso: false,
+      error: "Não é possível calcular o frete para cidades diferentes",
+    };
+  }
+
   const payload = {
     origem: {
       address_string: `${origin.address1}, ${
@@ -54,8 +57,8 @@ async function getRatesByGiross(origin, destination) {
     },
   };
 
-  console.log("\n -----Payload------- \n")
-  console.log(payload)
+  console.log("\n -----Payload------- \n");
+  console.log(payload);
 
   try {
     const response = await fetch(

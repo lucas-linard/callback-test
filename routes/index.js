@@ -12,6 +12,7 @@ router.post("/", async function (req, res, next) {
   );
 
   console.log("\n -----Giross------- \n");
+  console.log(ratesByGiross);
 
   if (ratesByGiross.sucesso) {
     const rates = ratesByGiross.servicos.map((rate) => {

@@ -8,16 +8,14 @@ router.post("/", async function (req, res, next) {
     req.body.rate.destination
   );
 
-  let dataAtual = new Date();
-  let doisDiasNoFuturo = new Date(dataAtual);
-  doisDiasNoFuturo.setDate(dataAtual.getDate() + 2);
+  console.log(ratesByGiross)
 
-  
-  if(ratesByGiross.sucesso){
+
+  if (ratesByGiross.sucesso) {
     const rates = ratesByGiross.servicos.map((rate) => {
       return {
         service_name: "Giross-test",
-        description: "Includes tracking",
+        description: rate.service_type.name,
         service_code: "giross.standard-shipping",
         currency: "BRL",
         total_price: rate.valor * 100,
@@ -28,36 +26,30 @@ router.post("/", async function (req, res, next) {
     res.json({
       rates: rates,
     });
-
+  } else {
+    res.status(400).json({
+      errors: [
+        {
+          code: "not_found",
+          message: "No rates found for the specified parameters",
+        },
+      ],
+    });
   }
-
-
-  res.json({
-    rates: [
-      {
-        service_name: "Giross-test",
-        description: "Includes tracking",
-        service_code: "giross.standard-shipping",
-        currency: "BRL",
-        total_price: 100000,
-        phone_required: true,
-        min_delivery_date: new Date(),
-        max_delivery_date: doisDiasNoFuturo,
-      },
-    ],
-  });
 });
 
 async function getRatesByGiross(origin, destination) {
+  
+  const payload = {
+    origem: {
+      address_string: `${origin.address1} ${origin.address2} ${origin.city}`,
+    },
+    destino: {
+      address_string: `${destination.address1} ${destination.address2} ${destination.city}`,
+    },
+  };
+  
   try {
-    const payload = {
-      origem: {
-        address_string: `${origin.address1} ${origin.address2} ${origin.city}`,
-      },
-      destino: {
-        address_string: `${destination.address1} ${destination.address2} ${destination.city}`,
-      },
-    };
 
     console.log(payload);
     const response = await fetch(
@@ -67,7 +59,7 @@ async function getRatesByGiross(origin, destination) {
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ikdpcm9zc0B0ZXN0ZS5jb20iLCJpZCI6MTc3MzYsImlhdCI6MTcwNDgzNTQzOSwiZXhwIjoxNzA0ODcxNDM5fQ.2D6R1lz0TFv7hRGz0JxVo3URjrZztNkP7fx5MBj_aJE`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ikdpcm9zc0B0ZXN0ZS5jb20iLCJpZCI6MTc3MzYsImlhdCI6MTcwNDg4ODMyMSwiZXhwIjoxNzA0OTI0MzIxfQ.N8d7oiO3LZ7OA3b88Az0Xb2I20jbTy5dO_ijrV71VhI`,
         },
       }
     );

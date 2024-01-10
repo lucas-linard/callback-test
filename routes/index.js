@@ -3,13 +3,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.post("/", async function (req, res, next) {
-
-console.log(req.body);
+  console.log("\n -----Shopify------- \n")
+  console.log(req.body);
 
   const ratesByGiross = await getRatesByGiross(
     req.body.rate.origin,
     req.body.rate.destination
   );
+
+  console.log("\n -----Giross------- \n")
 
   if (ratesByGiross.sucesso) {
     const rates = ratesByGiross.servicos.map((rate) => {
@@ -39,16 +41,22 @@ console.log(req.body);
 });
 
 async function getRatesByGiross(origin, destination) {
-  
   const payload = {
     origem: {
-      address_string: `${origin.address1} ${origin.address2} ${origin.city}`,
+      address_string: `${origin.address1}, ${
+        origin.address2 ? origin.address2 : ""
+      }, ${origin.city} - ${origin.province}`,
     },
     destino: {
-      address_string: `${destination.address1} ${destination.address2} ${destination.city}`,
+      address_string: `${destination.address1}, ${
+        destination.address2 ? destination.address2 : ""
+      }, ${destination.city} - ${destination.province}`,
     },
   };
-  
+
+  console.log("\n -----Payload------- \n")
+  console.log(payload)
+
   try {
     const response = await fetch(
       "https://teste.giross.com.br/api/empresa/estimated-value",

@@ -7,7 +7,7 @@ router.post("/", async function (req, res, next) {
   console.log(req.body);
 
   if (req.body.rate.destination.address2 === null) {
-    res.status(400).json({
+    return res.status(400).json({
       sucesso: false,
       error: "Não é possível calcular o frete sem o numero do endereço",
     });
@@ -33,11 +33,11 @@ router.post("/", async function (req, res, next) {
       };
     });
 
-    res.json({
+    return res.json({
       rates: rates,
     });
   } else {
-    res.status(400).json(ratesByGiross.error);
+    return res.status(400).json(ratesByGiross.error);
   }
 });
 

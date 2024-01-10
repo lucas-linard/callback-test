@@ -1,15 +1,7 @@
 var express = require("express");
-const morgan = require('morgan');
+
 
 var router = express.Router();
-
-router.use(morgan('dev'));
-
-router.use((req, res, next) => {
-  const err = new Error(`Rota não encontrada: ${req.originalUrl}`);
-  err.status = 404;
-  next(err);
-});
 
 
 /* GET home page. */

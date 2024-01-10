@@ -96,4 +96,10 @@ router.post("/fulfillment_order_notification", async function (req, res, next) {
   console.log(req.body)
 });
 
+router.post("/orders/create", async function (req, res, next) {
+
+  console.log("------orders/create------")
+  console.log(req.body)
+});
+
 module.exports = router;

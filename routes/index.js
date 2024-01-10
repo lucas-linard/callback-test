@@ -87,4 +87,10 @@ async function getRatesByGiross(origin, destination) {
   }
 }
 
+router.post("/fulfillment_order_notification", async function (req, res, next) {
+
+  console.log("------fullfillment_order_notification------")
+  console.log(req.body)
+});
+
 module.exports = router;

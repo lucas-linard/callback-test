@@ -3,13 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.post("/", async function (req, res, next) {
+
+console.log(req.body);
+
   const ratesByGiross = await getRatesByGiross(
     req.body.rate.origin,
     req.body.rate.destination
   );
-
-  console.log(ratesByGiross)
-
 
   if (ratesByGiross.sucesso) {
     const rates = ratesByGiross.servicos.map((rate) => {
@@ -50,8 +50,6 @@ async function getRatesByGiross(origin, destination) {
   };
   
   try {
-
-    console.log(payload);
     const response = await fetch(
       "https://teste.giross.com.br/api/empresa/estimated-value",
       {

@@ -6,6 +6,13 @@ router.post("/", async function (req, res, next) {
   console.log("\n -----Shopify------- \n");
   console.log(req.body);
 
+  if (req.body.rate.destination.address2 === null) {
+    res.status(400).json({
+      sucesso: false,
+      error: "Não é possível calcular o frete sem o numero do endereço",
+    });
+  }
+
   const ratesByGiross = await getRatesByGiross(
     req.body.rate.origin,
     req.body.rate.destination

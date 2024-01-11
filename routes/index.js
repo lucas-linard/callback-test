@@ -99,8 +99,16 @@ router.post("/fulfillment_order_notification", async function (req, res, next) {
 router.post("/orders/create", async function (req, res, next) {
 
   console.log("------orders/create------")
-  console.log(req.body)
-  console.log("is From Giross: " + req.body.shipping_lines[0].source === "Giross" )
+  const item = {
+    id: req.body.id,
+    confirmation_number: req.body.confirmation_number,
+    created_at: req.body.created_at,
+    updated_at: req.body.updated_at,
+    processed_at: req.body.processed_at,
+    shipping_lines: req.body.shipping_lines,
+  }
+  console.log(item)
+  console.log("is From : " + req.body.shipping_lines[0].source)
 
   const shipping = {
 

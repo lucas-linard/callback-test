@@ -108,11 +108,13 @@ router.post("/orders/create", async function (req, res, next) {
     shipping_lines: req.body.shipping_lines,
   }
   console.log(item)
-  console.log("is From : " + req.body.shipping_lines[0].source)
+  console.log(req.body.shipping_lines[0].source === "Giross")
 
   const shipping = {
 
   }
+
+  return res.send(200)
 });
 
 module.exports = router;

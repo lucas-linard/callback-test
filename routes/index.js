@@ -79,7 +79,7 @@ async function getRatesByGiross(origin, destination) {
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ikdpcm9zc0B0ZXN0ZS5jb20iLCJpZCI6MTc3MzYsImlhdCI6MTcwNDg4ODMyMSwiZXhwIjoxNzA0OTI0MzIxfQ.N8d7oiO3LZ7OA3b88Az0Xb2I20jbTy5dO_ijrV71VhI`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ikdpcm9zc0B0ZXN0ZS5jb20iLCJpZCI6MTc3MzYsImlhdCI6MTcwNDk4NDUzOCwiZXhwIjoxNzA1MDIwNTM4fQ.2jRipgE3dBSpCUT1Er6twOTZgF7vAvjb9MoE-1PhmkA`,
         },
       }
     );
@@ -100,6 +100,11 @@ router.post("/orders/create", async function (req, res, next) {
 
   console.log("------orders/create------")
   console.log(req.body)
+  console.log("is From Giross: " + req.body.shipping_lines[0].source === "Giross" )
+
+  const shipping = {
+
+  }
 });
 
 module.exports = router;

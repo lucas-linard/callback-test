@@ -79,7 +79,7 @@ async function getRatesByGiross(origin, destination) {
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ikdpcm9zc0B0ZXN0ZS5jb20iLCJpZCI6MTc3MzYsImlhdCI6MTcwNDk4NDUzOCwiZXhwIjoxNzA1MDIwNTM4fQ.2jRipgE3dBSpCUT1Er6twOTZgF7vAvjb9MoE-1PhmkA`,
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imdpcm9zc0B0ZXN0ZS5jb20iLCJpZCI6MTc3MzYsImlhdCI6MTcwNTA2Njg0MCwiZXhwIjoxNzA1MTAyODQwfQ.m6o-IpxjU59CeQ2DMMLTY62vniJWcjYEPX6ZroYdSgs`,
         },
       }
     );
